@@ -45,7 +45,6 @@ const AdminDashboard = () => {
       setLoading(false);
     }
   };
-
   const quickActions = [
     {
       title: 'Create Doctor',
@@ -53,6 +52,13 @@ const AdminDashboard = () => {
       icon: UserPlusIcon,
       path: '/admin/create-doctor',
       color: 'bg-primary-500',
+    },
+    {
+      title: 'Create Receptionist',
+      description: 'Add a new receptionist to the system',
+      icon: UserPlusIcon,
+      path: '/admin/create-receptionist',
+      color: 'bg-indigo-500',
     },
     {
       title: 'View Reports',
