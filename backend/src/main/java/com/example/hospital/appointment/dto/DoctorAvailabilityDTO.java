@@ -2,24 +2,22 @@ package com.example.hospital.appointment.dto;
 
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
-public class AppointmentRequestDTO {
-    @NotNull(message = "Patient ID is required")
-    private Long patientId;
+public class DoctorAvailabilityDTO {
+    private Long id;
     
     @NotNull(message = "Doctor ID is required")
     private Long doctorId;
     
-    @NotNull(message = "Appointment date is required")
-    private LocalDate appointmentDate;
+    @NotNull(message = "Available date is required")
+    private LocalDate availableDate;
     
     @NotNull(message = "Start time is required")
     private LocalTime startTime;
     
-    @NotBlank(message = "Reason is required")
-    private String reason;
+    @NotNull(message = "End time is required")
+    private LocalTime endTime;
 }

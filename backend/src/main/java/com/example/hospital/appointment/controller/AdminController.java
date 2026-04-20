@@ -1,11 +1,11 @@
-package com.example.hospital.appointment.controller;
+package com.hospital.appointment.controller;
 
-import com.example.hospital.appointment.dto.RegisterRequest;
-import com.example.hospital.appointment.dto.DoctorSearchDTO;
-import com.example.hospital.appointment.entity.User;
-import com.example.hospital.appointment.entity.Role;
-import com.example.hospital.appointment.repository.UserRepository;
-import com.example.hospital.appointment.service.ReportService;
+import com.hospital.appointment.dto.RegisterRequest;
+import com.hospital.appointment.dto.DoctorSearchDTO;
+import com.hospital.appointment.entity.User;
+import com.hospital.appointment.entity.Role;
+import com.hospital.appointment.repository.UserRepository;
+import com.hospital.appointment.service.ReportService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +47,23 @@ public class AdminController {
         userRepository.save(doctor);
         
         return ResponseEntity.ok("Doctor created successfully!");
+    }
+    
+    @PostMapping("/receptionists")
+    public ResponseEntity<?> createReceptionist(@Valid @RequestBody RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            return ResponseEntity.badRequest().body("Email is already in use!");
+        }
+        
+        User receptionist = new User();
+        receptionist.setName(request.getName());
+        receptionist.setEmail(request.getEmail());
+        receptionist.setPassword(passwordEncoder.encode(request.getPassword()));
+        receptionist.setRole(Role.RECEPTIONIST);
+        
+        userRepository.save(receptionist);
+        
+        return ResponseEntity.ok("Receptionist created successfully!");
     }
     
     @GetMapping("/doctors")

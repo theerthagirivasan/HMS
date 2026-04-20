@@ -1,6 +1,7 @@
 package com.example.hospital.appointment.config;
 
 import com.example.hospital.appointment.entity.User;
+import com.example.hospital.appointment.entity.LabTest;
 import com.example.hospital.appointment.entity.Role;
 import com.example.hospital.appointment.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,22 @@ public class DataInitializer {
                 userRepository.save(patient2);
                 System.out.println("✓ Jane Doe created");
             }
+            // Inside initDatabase method, add:
+if (userRepository.findByEmail("reception@hospital.com").isEmpty()) {
+    User receptionist = new User();
+    receptionist.setName("Reception Desk");
+    receptionist.setEmail("reception@hospital.com");
+    receptionist.setPassword(passwordEncoder.encode("recep123"));
+    receptionist.setRole(Role.RECEPTIONIST);
+    userRepository.save(receptionist);
+    System.out.println("✓ Receptionist created");
+}
+// After user creation, add lab tests if empty
+if (labTestRepository.count() == 0) {
+    labTestRepository.save(new LabTest(null, "Complete Blood Count", "CBC test", 500.0));
+    labTestRepository.save(new LabTest(null, "Lipid Profile", "Cholesterol test", 800.0));
+    labTestRepository.save(new LabTest(null, "Blood Sugar", "Fasting glucose", 300.0));
+}
             
             // Display all users
             System.out.println("\n=== Users in Database ===");
